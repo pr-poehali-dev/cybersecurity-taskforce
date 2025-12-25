@@ -36,13 +36,43 @@ const Index = () => {
     },
   ];
 
-  const services = [
-    { name: 'Аудит безопасности', icon: 'FileSearch', price: 'от 150 000 ₽' },
-    { name: 'Пентест', icon: 'Bug', price: 'от 200 000 ₽' },
-    { name: 'SOC as a Service', icon: 'Radio', price: 'от 80 000 ₽/мес' },
-    { name: 'Обучение персонала', icon: 'GraduationCap', price: 'от 50 000 ₽' },
-    { name: 'Compliance консалтинг', icon: 'ClipboardCheck', price: 'от 100 000 ₽' },
-    { name: 'Интеграция систем', icon: 'Plug', price: 'от 120 000 ₽' },
+  const securityResources = [
+    { 
+      name: 'VirusTotal', 
+      icon: 'Search', 
+      description: 'Проверка файлов и URL на вирусы 70+ антивирусами',
+      url: 'https://www.virustotal.com'
+    },
+    { 
+      name: 'Dr.Web', 
+      icon: 'Shield', 
+      description: 'База вирусов и угроз от российского антивируса',
+      url: 'https://vms.drweb.ru/search/'
+    },
+    { 
+      name: 'Kaspersky Threat Intelligence', 
+      icon: 'Database', 
+      description: 'Глобальная база киберугроз от Kaspersky Lab',
+      url: 'https://threats.kaspersky.com'
+    },
+    { 
+      name: 'URLhaus', 
+      icon: 'Link', 
+      description: 'База вредоносных URL и сайтов с малварью',
+      url: 'https://urlhaus.abuse.ch'
+    },
+    { 
+      name: 'AbuseIPDB', 
+      icon: 'Globe', 
+      description: 'Проверка репутации IP-адресов и атакующих узлов',
+      url: 'https://www.abuseipdb.com'
+    },
+    { 
+      name: 'CVE Details', 
+      icon: 'AlertCircle', 
+      description: 'База уязвимостей и эксплойтов CVE',
+      url: 'https://www.cvedetails.com'
+    },
   ];
 
   const threats = [
@@ -108,7 +138,7 @@ const Index = () => {
           <div className="hidden md:flex gap-8">
             <a href="#home" className="text-foreground/80 hover:text-foreground transition-colors">Главная</a>
             <a href="#solutions" className="text-foreground/80 hover:text-foreground transition-colors">Решения</a>
-            <a href="#services" className="text-foreground/80 hover:text-foreground transition-colors">Услуги</a>
+<a href="#resources" className="text-foreground/80 hover:text-foreground transition-colors">Ресурсы</a>
             <a href="#threats" className="text-foreground/80 hover:text-foreground transition-colors">База угроз</a>
           </div>
           <Button className="bg-primary hover:bg-primary/90">
@@ -205,48 +235,56 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="services" className="py-20">
+      <section id="resources" className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <Badge className="mb-4 bg-primary/20 text-primary border-primary/30">
-              <Icon name="Briefcase" size={14} className="mr-1" />
-              Услуги
+              <Icon name="ExternalLink" size={14} className="mr-1" />
+              Полезные ресурсы
             </Badge>
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
-              Профессиональные услуги
+              Бесплатные инструменты проверки
             </h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              От аудита до полного сопровождения ваших систем безопасности
+              Проверенные сервисы для анализа угроз, проверки файлов и мониторинга безопасности
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {services.map((service, index) => (
-              <Card 
-                key={index} 
-                className="p-6 bg-card border-border hover:border-secondary/50 transition-all hover:scale-105 group cursor-pointer"
+            {securityResources.map((resource, index) => (
+              <a
+                key={index}
+                href={resource.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block"
               >
-                <div className="flex items-start gap-4">
-                  <div className="p-3 rounded-lg bg-secondary/10 group-hover:bg-secondary/20 transition-colors">
-                    <Icon name={service.icon as any} className="text-secondary" size={24} />
+                <Card 
+                  className="p-6 bg-card border-border hover:border-secondary/50 transition-all hover:scale-105 group cursor-pointer h-full"
+                >
+                  <div className="flex flex-col h-full">
+                    <div className="flex items-start gap-4 mb-4">
+                      <div className="p-3 rounded-lg bg-secondary/10 group-hover:bg-secondary/20 transition-colors">
+                        <Icon name={resource.icon as any} className="text-secondary" size={24} />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-lg font-semibold mb-2 group-hover:text-secondary transition-colors flex items-center gap-2">
+                          {resource.name}
+                          <Icon name="ExternalLink" size={16} className="text-muted-foreground" />
+                        </h3>
+                      </div>
+                    </div>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{resource.description}</p>
                   </div>
-                  <div className="flex-1">
-                    <h3 className="text-lg font-semibold mb-2 group-hover:text-secondary transition-colors">
-                      {service.name}
-                    </h3>
-                    <p className="text-sm text-muted-foreground">{service.price}</p>
-                  </div>
-                  <Icon name="ChevronRight" className="text-muted-foreground group-hover:text-secondary group-hover:translate-x-1 transition-all" size={20} />
-                </div>
-              </Card>
+                </Card>
+              </a>
             ))}
           </div>
 
           <div className="mt-12 text-center">
-            <Button size="lg" variant="outline" className="border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground">
-              <Icon name="FileText" size={20} className="mr-2" />
-              Запросить коммерческое предложение
-            </Button>
+            <p className="text-muted-foreground">
+              Все ресурсы бесплатны и общедоступны для проверки файлов, URL и IP-адресов
+            </p>
           </div>
         </div>
       </section>
